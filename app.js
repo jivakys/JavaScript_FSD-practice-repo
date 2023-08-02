@@ -248,14 +248,6 @@ async function printUsers(Users) {
   console.log(users);
 }
 
-for (let i = str.length; i > 0; i--) {
-  new_str = new_str + str[i];
-}
-if (new_str == str) {
-  console.log("it is palindrome");
-} else {
-  console.log("it is not palindrome");
-}
 const express = require("express");
 const { userPresent } = require("../middleware/user.middleware");
 const { UserModel } = require("../models/user.model");
@@ -673,25 +665,6 @@ userRoute.get("/name", async (req, res) => {
   }
 });
 
-for (let i = 1; i <= num; i++) {
-  if (num % i == 0) {
-    count++;
-  }
-}
-if (count == 2) {
-  console.log("it is prime");
-} else {
-  console.log("it is not prime");
-}
-
-for (let i = str.length; i > 0; i--) {
-  new_str = new_str + str[i];
-}
-if (new_str == str) {
-  console.log("it is palindrome");
-} else {
-  console.log("it is not palindrome");
-}
 const express = require("express");
 const { userPresent } = require("../middleware/user.middleware");
 const { UserModel } = require("../models/user.model");
