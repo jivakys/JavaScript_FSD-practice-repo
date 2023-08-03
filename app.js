@@ -1298,49 +1298,6 @@ function getproduct(url) {
     .catch((err) => console.log(err));
 }
 // ********************* login *************************
-router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
-  console.log(username, password);
-  try {
-    if (!username) {
-      return res.status(400).send({ message: "put username" });
-    }
-    if (!password) {
-      return res.status(400).send({ message: "put password" });
-    }
-    const user = await userModel.findOne({ username });
-    console.log(user);
-    if (user) {
-      bcrypt.compare(password, user.password, (error, result) => {
-        if (result) {
-          const accesstoken = jwt.sign({ username }, "khirod", {
-            expiresIn: "6h",
-          });
-          const refreshtoken = jwt.sign({ username }, "shreyansh", {
-            expiresIn: "24h",
-          });
-          res.cookie("accessToken", accesstoken, {
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-          });
-          res.cookie("refreshToken", refreshtoken, {
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-          });
-          res
-            .status(200)
-            .send({ message: "login syccessfull", token: accesstoken });
-        } else {
-          return res.status(400).send({ message: "wrong password" });
-        }
-      });
-    } else {
-      return res.status(400).send({ message: "put correct email id" });
-    }
-  } catch (error) {
-    console.log(error);
-    res.status(400).send({ message: "something went wrong" });
-  }
-});
-
 // ************ refreshtoken ************
 router.get("/refreshtoken", async (req, res) => {
   const refreshtoken = req.cookies.refreshToken;
