@@ -1,13 +1,15 @@
 export enum DatabaseModel {
   users = "users",
-  videos = "videos",
-  notifications = "notifications",
+  posts = "posts",
+  comments = "comments",
+  likes = "likes",
 }
 
 interface IModel {
   id: number;
   model: DatabaseModel;
 }
+
 export abstract class Model implements IModel {
   id: number;
   model: DatabaseModel;
@@ -17,226 +19,179 @@ export abstract class Model implements IModel {
   }
 }
 
-interface IUser extends IModel {
+interface IUser {
   name: string;
+  bio: string;
   email: string;
-  type: "Consumer" | "Creator";
+  follows: number[];
 }
 
-export abstract class UserModel extends Model implements IUser {
+export class User extends Model implements IUser {
   name: string;
+  bio: string;
   email: string;
-  type: "Consumer" | "Creator";
-  constructor(name: string, email: string, type: "Consumer" | "Creator") {
+  follows: number[];
+
+  constructor(name: string, bio: string, email: string) {
     super(DatabaseModel.users);
     this.name = name;
+    this.bio = bio;
     this.email = email;
+    this.follows = [];
+    Database.Instance?.create(DatabaseModel.users, this);
+  }
+  follow(userID: number) {
+    return this.follows.push(userID);
+  }
+
+  get followers() {
+    return this.follows.length;
+  }
+
+  get posts() {
+    return Database.connect().Posts.filter((post) => {
+      post.userID == this.id;
+    }).length;
+  }
+
+  createPost(image: string, content: string) {
+    return new Post(image, content, this.id);
+  }
+}
+
+interface IPost {
+  image: string;
+  content: string;
+  userID: number;
+}
+
+export class Post extends Model implements IPost {
+  image: string;
+  content: string;
+  userID: number;
+  constructor(image: string, content: string, userID: number) {
+    super(DatabaseModel.posts);
+    this.image = image;
+    this.content = content;
+    this.userID = userID;
+    Database.Instance?.create(DatabaseModel.posts, this);
+  }
+
+  get likes(): number {
+    return Database.connect().Likes.filter(
+      (like) => like.parentID === this.id && like.type === "POST"
+    ).length;
+  }
+
+  Like(userID: number) {
+    return new Like("POST", userID, this.id);
+  }
+
+  Comment(userID: number) {
+    return new Comment(this.content, userID, this.userID);
+  }
+}
+
+interface IComment {
+  content: string;
+  userID: number;
+  postID: number;
+}
+
+export class Comment extends Model implements IComment {
+  content: string;
+  userID: number;
+  postID: number;
+  constructor(content: string, userID: number, postID: number) {
+    super(DatabaseModel.comments);
+    this.content = content;
+    this.userID = userID;
+    this.postID = postID;
+    Database.Instance?.create(DatabaseModel.comments, this);
+  }
+
+  get likes(): number {
+    return Database.connect().Likes.filter(
+      (like) => like.type === "COMMENT" && like.parentID === this.id
+    ).length;
+  }
+
+  Like(userID: number) {
+    return new Like("COMMENT", userID, this.id);
+  }
+}
+
+interface ILike {
+  type: "POST" | "COMMENT";
+  userID: number;
+  parentID: number;
+}
+
+export class Like extends Model implements ILike {
+  type: "POST" | "COMMENT";
+  userID: number;
+  parentID: number;
+  constructor(type: "POST" | "COMMENT", userID: number, parentID: number) {
+    super(DatabaseModel.likes);
     this.type = type;
-  }
-}
-
-interface IConsumer extends IUser {
-  isPremium: boolean;
-  subscibedChannels: number[];
-}
-
-export class ConsumerModel extends UserModel implements IConsumer {
-  isPremium: boolean;
-  subscibedChannels: number[];
-  constructor(name: string, email: string) {
-    super(name, email, "Consumer");
-    this.isPremium = false;
-    this.subscibedChannels = [];
-
-    Database.Instance?.users.push({
-      id: this.id,
-      name: this.name,
-      email: this.email,
-      model: this.model,
-      type: this.type,
-      isPremium: this.isPremium,
-      subscibedChannels: this.subscibedChannels,
-    });
-  }
-  subscribe(creatorID: number) {
-    if (Database.Instance === null) return;
-    this.subscibedChannels.push(creatorID);
-    Database.Instance.users = Database.Instance?.users.map((ele) => {
-      if (ele.id === this.id) {
-        return {
-          id: this.id,
-          name: this.name,
-          email: this.email,
-          model: this.model,
-          type: this.type,
-          isPremium: this.isPremium,
-          subscibedChannels: this.subscibedChannels,
-        };
-      } else {
-        return ele;
-      }
-    });
-  }
-
-  viewNotifications() {
-    if (Database.Instance === null) return;
-    const notification = Database.Instance?.notifications.filter((ele) => {
-      if (ele.userID === this.id && ele.hasRead === false) {
-        return true;
-      }
-      return false;
-    });
-
-    Database.Instance.notifications = Database.Instance?.notifications.map(
-      (element) => {
-        if (element.id === this.id) {
-          return { ...element, hasRead: true };
-        }
-        return element;
-      }
-    );
-    return notification;
-  }
-}
-
-interface ICreator extends IUser {
-  noOfSubscribers: number;
-}
-
-export class CreatorModel extends UserModel implements ICreator {
-  noOfSubscribers: number;
-  constructor(name: string, email: string) {
-    super(name, email, "Creator");
-    this.noOfSubscribers = 0;
-
-    Database.Instance?.users.push({
-      id: this.id,
-      name: this.name,
-      email: this.email,
-      model: this.model,
-      type: this.type,
-      noOfSubscribers: this.noOfSubscribers,
-    });
-  }
-  uploadVideo(link: string, title: string, categories: string[]) {
-    const vid = new VideoModel(link, title, categories, this.id);
-    Database.Instance?.videos.push(vid);
-    Database.Instance?.users.forEach((ele) => {
-      if (ele.subscibedChannels.includes(this.id) === false) return;
-      const notification = new NotificationModel(
-        title,
-        "This is a video Notification",
-        ele.id
-      );
-      Database.Instance?.notifications.push(notification);
-    });
-  }
-}
-
-interface IVideo extends IModel {
-  link: string;
-  title: string;
-  categories: string[];
-  views: number;
-  likes: number;
-  dislikes: number;
-  userID: number;
-}
-export class VideoModel extends Model implements IVideo {
-  link: string;
-  title: string;
-  categories: string[];
-  views: number;
-  likes: number;
-  dislikes: number;
-  userID: number;
-  constructor(
-    link: string,
-    title: string,
-    categories: string[],
-    userID: number
-  ) {
-    super(DatabaseModel.videos);
-    this.link = link;
-    this.title = title;
-    this.categories = categories;
     this.userID = userID;
-    this.views = 0;
-    this.likes = 0;
-    this.dislikes = 0;
-
-    Database.Instance?.videos.push({
-      id: this.id,
-      model: this.model,
-      link: this.link,
-      title: this.title,
-      categories: this.categories,
-      userID: this.userID,
-      views: this.views,
-      likes: this.likes,
-      dislikes: this.dislikes,
-    });
-  }
-}
-
-interface INotifications extends IModel {
-  title: string;
-  description: string;
-  userID: number;
-  hasRead: boolean;
-}
-
-export class NotificationModel extends Model implements INotifications {
-  title: string;
-  description: string;
-  userID: number;
-  hasRead: boolean;
-  constructor(title: string, description: string, userID: number) {
-    super(DatabaseModel.notifications);
-    this.title = title;
-    this.description = description;
-    this.userID = userID;
-    this.hasRead = false;
-    Database.Instance?.notifications.push({
-      id: this.id,
-      model: this.model,
-      title: this.title,
-      description: this.description,
-      userID: this.userID,
-      hasRead: this.hasRead,
-    });
+    this.parentID = parentID;
+    Database.Instance?.create(DatabaseModel.likes, this);
   }
 }
 
 export class Database {
-  users: any[];
-  videos: IVideo[];
-  notifications: INotifications[];
+  private users: IUser[];
+  private posts: IPost[];
+  private comments: IComment[];
+  private likes: ILike[];
 
   static Instance: Database | null = null;
 
-  private constructor() {
-    this.users = [];
-    this.videos = [];
-    this.notifications = [];
-  }
   static connect() {
-    if (Database.Instance === null) {
+    if (Database.Instance == null) {
       Database.Instance = new Database();
     }
     return Database.Instance;
   }
 
+  private constructor() {
+    this.users = [];
+    this.comments = [];
+    this.posts = [];
+    this.likes = [];
+  }
+
   get Users() {
     return this.users;
   }
-  get Videos() {
-    return this.videos;
+
+  get Likes() {
+    return this.likes;
   }
-  get Notifications() {
-    return this.notifications;
+
+  get Comments() {
+    return this.comments;
   }
-  create() {}
+
+  get Posts() {
+    return this.posts;
+  }
+
+  create(model: DatabaseModel, data: any) {
+    if (model == DatabaseModel.users) {
+      return this.users.push(data);
+    } else if (model == DatabaseModel.posts) {
+      return this.posts.push(data);
+    } else if (model == DatabaseModel.likes) {
+      return this.likes.push(data);
+    } else if (model == DatabaseModel.comments) {
+      return this.comments.push(data);
+    } else {
+      throw Error("Invalid Model");
+    }
+  }
+
   upsert() {}
   delete() {}
 }
