@@ -141,3 +141,72 @@ pop();
 push(68);
 console.log(arr);
 console.log(peek());
+
+// Valid Stack Sequence
+n = 5;
+let arr1 = [1, 2, 3, 4, 5];
+let arr2 = [4, 5, 3, 2, 1];
+// 5
+// 1 2 3 4 5
+// 4 3 5 1 2
+function validSequence(n, arr1, arr2) {
+  let count = 0;
+  let stack = [];
+  for (let i = 0; i < n; i++) {
+    stack.push(arr1[i]);
+    while (
+      stack.length != 0 &&
+      count < n &&
+      stack[stack.length - 1] == arr2[count]
+    ) {
+      stack.pop();
+      count++;
+    }
+  }
+  if (stack.length === 0) {
+    console.log("Valid");
+  } else {
+    console.log("Invalid");
+  }
+}
+
+// Stack Next Greater
+
+let length = 4;
+let array = [1, 3, 2, 4];
+function greaterEle(n, arr) {
+  let stack = [];
+  let ans = [];
+  for (let i = n - 1; i >= 0; i--) {
+    while (stack.length != 0 && stack[stack.length - 1] <= arr[i]) {
+      stack.pop();
+    }
+    if (stack.length == 0) {
+      ans.push(-1);
+    } else {
+      ans.push(stack[stack.length - 1]);
+    }
+    stack.push(arr[i]);
+  }
+  console.log(ans.reverse().join(" "));
+}
+
+// Stack Next Smaller
+let N = 8;
+let narr = [39, 27, 11, 4, 24, 32, 32, 1];
+function smallNeighbour(N, arr) {
+  let res = [];
+  let ans = [];
+  for (let i = 0; i < N; i++) {
+    while (res.length != 0 && res[res.length - 1] >= arr[i]) {
+      res.pop();
+    }
+    if (res.length == 0) {
+      ans.push(-1);
+    } else {
+      ans.push(res[res.length - 1]);
+    }
+    res.push(arr[i]);
+  }
+  console.log(ans.join(" "));
+}
