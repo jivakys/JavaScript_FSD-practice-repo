@@ -210,3 +210,100 @@ function smallNeighbour(N, arr) {
   }
   console.log(ans.join(" "));
 }
+
+// FIND DUPLICATE
+function duplicateEncounter(str) {
+  let stack = [];
+  for (let i = 0; i < str.length; i++) {
+    if (stack[stack.length - 1] == str[i]) {
+      stack.pop();
+    } else {
+      stack.push(str[i]);
+    }
+  }
+  if (stack.length === 0) {
+    console.log("Empty String");
+  } else {
+    console.log(stack.join(""));
+  }
+}
+
+function runProgram(input) {
+  input = input.trim().split("\n");
+  let str = input[0].trim();
+  duplicateEncounter(str);
+}
+
+// Pattern N
+function patternOfN(N) {
+  // Write code here
+
+  let count = 1;
+  for (let i = 1; i <= N; i++) {
+    let bag = "";
+    for (let j = 1; j <= N; j++) {
+      bag = bag + count + " ";
+      count++;
+    }
+    console.log(count);
+  }
+}
+
+// DETECT GIVEN Number PALINDROM or NOT
+function detectPalindrome(num) {
+  //   num = num.toString();
+  //   let new_num = "";
+
+  //  for(let i =num.length-1; i>=0; i--){
+  //     new_num = new_num + num[i];
+  // }
+  //     if(num==new_num){
+  //         console.log("Yes");
+  //     }
+  //     else{
+  //         console.log("No");
+  //     }
+
+  let rev = 0;
+  let temp = num;
+  while (num > 0) {
+    rem = num % 10;
+    rev = rev * 10 + rem;
+    num = Math.floor(num / 10);
+  }
+  if (temp == rev) {
+    console.log("Yes");
+  } else {
+    console.log("No");
+  }
+}
+
+// Perform Merging
+function merging(N, arr1, arr2) {
+  let arr3 = new Array(N + N);
+  let i = 0,
+    j = 0,
+    k = 0;
+  while (i < N && j < N) {
+    if (arr1[i] < arr2[j]) {
+      arr3[k] = arr1[i];
+      i++;
+      k++;
+    } else {
+      arr3[k] = arr2[j];
+      j++;
+      k++;
+    }
+  }
+  while (i < N) {
+    arr3[k] = arr1[i];
+    i++;
+    k++;
+  }
+  while (j < N) {
+    arr3[k] = arr2[j];
+    j++;
+    k++;
+  }
+  console.log(arr3.join(" "));
+}
