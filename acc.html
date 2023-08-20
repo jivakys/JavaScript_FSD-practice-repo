@@ -1,0 +1,370 @@
+<!-- # pass:Jivakys345# -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account</title>
+    <link rel="stylesheet" href="../styles/index.css" />
+    <link rel="stylesheet" href="../styles/account.css" />
+    <link rel="icon" href="../images/favicon.png" type="image/x-icon" />
+  </head>
+  <body>
+    <nav>
+      <div id="topNav">
+        <img
+          src="../images/skilcraft-logo.png"
+          alt=""
+          onclick="window.location.href='../index.html'"
+        />
+        <div>
+          <p onclick="showSkills()">Skills</p>
+          <p onclick="showCourses()">Courses</p>
+          <p onclick="showPlans()">Plans</p>
+        </div>
+        <div>
+          <button><ion-icon name="search-outline"></ion-icon>Search</button>
+          <hr />
+          <div id="user" onclick="redirect()">
+            <img src="../images/nav-profile-image.svg" alt="" />
+            <span id="userName">Sign In</span>
+          </div>
+        </div>
+      </div>
+      <div id="bottomNav">
+        <hr />
+        <div></div>
+        <ion-icon
+          name="arrow-up-outline"
+          id="hide"
+          onclick="hideBottomNav()"
+        ></ion-icon>
+      </div>
+    </nav>
+    <main>
+      <div id="account_section">
+        <section id="section_1">
+          <div class="profile_details_div" onclick="displayAccount()">
+            <img src="../images/nav-profile-image.svg" alt="" />
+            <h2>Account</h2>
+          </div>
+
+          <div
+            class="profile_details_div"
+            onclick="window.location.href='./account.html?active=video'"
+          >
+            <img src="../images/videos-svgrepo-com.svg" alt="" />
+            <h2>Videos</h2>
+          </div>
+
+          <div class="profile_details_div" onclick="displaySubscribers()">
+            <img src="../images/notifications-svgrepo-com.svg" alt="" />
+            <h2>Courses</h2>
+          </div>
+
+          <div class="profile_details_div" onclick="displayPlans()">
+            <img src="../images/videos_nlogo.svg" alt="" />
+            <h2>Plans</h2>
+          </div>
+
+          <div class="profile_details_div" onclick="displayNotifications()">
+            <img src="../images/notifications-svgrepo-com.svg" alt="" />
+            <h2>Notifications</h2>
+          </div>
+        </section>
+        <section id="section_2">
+          <!-- ACCOUNT -->
+          <div id="account">
+            <div class="account">
+              <div class="profile_pic_div">
+                <div class="profile_img">
+                  <img src="../images/nav-profile-image.svg" alt="" />
+                </div>
+                <h2>Coder</h2>
+                <div class="social_handler">
+                  <div>
+                    <img src="../images/icons8-facebook.svg" alt="facbook" />
+                    <img src="../images/icons8-instagram.svg" alt="instagram" />
+                    <img
+                      src="../images/icons8-twitter-circled.svg"
+                      alt="twitter"
+                    />
+                    <img src="../images/icons8-github.svg" alt="github" />
+                  </div>
+                </div>
+              </div>
+              <div class="user_data">
+                <h1>Name: <span id="name">Joe</span></h1>
+                <h1>Email: <span id="email">joe@gmail.com</span></h1>
+                <div class="btns">
+                  <button class="my-button">Change password</button>
+                  <button class="my-button" onclick="logout()">Logout</button>
+                  <button class="my-button">Delete Account</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- VIDEOS -->
+          <div id="videos" class="sub_section">
+            <!-- <div class="sub_section"> -->
+            <div class="videos_container">
+              <button id="upload">Upload Video</button>
+              <div id="parent">
+                <div class="lds-roller">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <span>Loading</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBSCRIBERS -->
+          <div id="subscribe">
+            <div class="subscriber_container">
+              <div class="subscriber">
+                <div class="sub_image">
+                  <img src="../images/Untitled-design-77.jpg" alt="" />
+                </div>
+                <div class="sub_info">
+                  <h2 class="titleName"><span>Name: </span> Masai Coder</h2>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Libero voluptates accusantium eos eius nihil omnis, magni
+                    nam blanditiis tempora deleniti fugiat eveniet voluptatem
+                    quibusdam eius adipisci laborum commodi exercitationem
+                    pariatur. Distinctio rem nulla odit quia? Autem, nisi
+                    maiores.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PLANS -->
+          <div id="plans">
+            <div class="plans">
+              <div class="plan_div">
+                <h1 class="plan_title">Free trial</h1>
+                <h2>Price: <span class="plan_more">$00/10days</span></h2>
+                <h2>More About Plan</h2>
+                <ul class="plan_more">
+                  <li>Unlimited videos,</li>
+                  <li>Watch on 1 phone or tablet at a time</li>
+                  <li>Expire in 10 Days</li>
+                </ul>
+              </div>
+              <div class="plan_div">
+                <h1 class="plan_title">Basic Plan</h1>
+                <h2>Price: <span class="plan_more">$100/month</span></h2>
+                <h2>More About Plan</h2>
+                <ul class="plan_more">
+                  <li>Unlimited ad-free videos,</li>
+                  <li>Watch on 1 phone or tablet at a time</li>
+                  <li>Expire in 30 Days</li>
+                </ul>
+              </div>
+              <div class="plan_div">
+                <h1 class="plan_title">Standard Plan</h1>
+                <h2>Price: <span class="plan_more">$1000/year</span></h2>
+                <h2>More About Plan</h2>
+                <ul class="plan_more">
+                  <li>Unlimited ad-free videos,</li>
+                  <li>Watch on 3 phone or tablet at a time</li>
+                  <li>Expire in 365 Days</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- NOTIFICATIONS -->
+          <div id="notifications">
+            <div class="notifications">
+              <h1>No New Notifications Come</h1>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <div id="popup" class="popup">
+      <h1>
+        Enter Your Video Details
+        <span id="close" onclick="closePopup()"
+          ><ion-icon name="close-outline"></ion-icon
+        ></span>
+      </h1>
+
+      <div id="details">
+        <form id="imageForm" action="/api/upload/image" method="post">
+          <input
+            type="text"
+            placeholder="Enter Video Title"
+            id="title"
+            name="title"
+          />
+          <textarea
+            cols="30"
+            rows="5"
+            placeholder="Enter Video Description"
+            id="description"
+          ></textarea>
+          <select name="category" id="category">
+            <option value="">Select Category</option>
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Python">Python</option>
+            <option value="Java">Java</option>
+            <option value="React">React</option>
+            <option value="Node.js">Node.js</option>
+            <option value="MongoDB">MongoDB</option>
+            <option value="SQL">SQL</option>
+            <option value="AWS">AWS</option>
+            <option value="Machine Learning">Machine Learning</option>
+            <option value="Data Science">Data Science</option>
+            <option value="Blockchain">Blockchain</option>
+            <option value="UI/UX Design">UI/UX Design</option>
+            <option value="Android Development">Android Development</option>
+            <option value="iOS Development">iOS Development</option>
+            <option value="Flutter">Flutter</option>
+            <option value="Swift">Swift</option>
+            <option value="C#">C#</option>
+            <option value="C++">C++</option>
+          </select>
+
+          <label for="">Choose Your Thambnail (Max File Size 5Mb)</label>
+          <input
+            type="file"
+            name="image"
+            id="image"
+            accept=".jpg, .png, .pdf"
+            onchange="handleImageChange(event)"
+          />
+          <label for="">Choose Your Video (Max File Size 90Mb)</label>
+          <input
+            type="file"
+            id="video"
+            accept="video/mp4,video/x-m4v,video/*"
+            onchange="handleVideoChange(event)"
+          />
+          <button onclick="uploadVideo(event)" id="uploadButton">Upload</button>
+        </form>
+
+        <div id="preview">
+          <div>
+            <h2>Thambnail Preview</h2>
+            <img
+              src="../images/defult thambnail.svg"
+              alt=""
+              width="300px"
+              height="200px"
+              id="img"
+            />
+            <h2>Video Preview</h2>
+            <video controls width="300" height="200">
+              <source src="" type="video/mp4" class="video" />
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pro">
+      <div class="color"></div>
+      <h1 style="margin-top: -60px">Uploading...</h1>
+    </div>
+    <footer>
+      <div id="topFooter">
+        <div>
+          <h1>Support</h1>
+          <a href="">Contact</a>
+          <a href="">Help Center</a>
+          <a href="">IP Allowlist</a>
+          <a href="">Site Map</a>
+          <a href="">Download SkilCraft</a>
+          <a href="">Skills Plans</a>
+          <a href="">A Cloud Guru Plans</a>
+          <a href="">Flow Plans</a>
+        </div>
+        <div>
+          <h1>Community</h1>
+          <a href="">Guides</a>
+          <a href="">Teach</a>
+          <a href="">Partner with SkilCraft</a>
+          <a href="">Affiliate Partners</a>
+          <a href="">SkilCraft One</a>
+          <a href="">Authors</a>
+        </div>
+        <div>
+          <h1>Company</h1>
+          <a href="">About Us</a>
+          <a href="">Careers</a>
+          <a href="">Newsroom</a>
+          <a href="">Resources</a>
+        </div>
+        <div>
+          <h1>Industries</h1>
+          <a href="">Education</a>
+          <a href="">Financial Services (FSBI)</a>
+          <a href="">Healthcare</a>
+          <a href="">Insurance</a>
+          <a href="">Non-Profit</a>
+          <a href="">Public Sector</a>
+        </div>
+        <div>
+          <h1>Newsletter</h1>
+          <a href="">Sign up with your email to join our mailing list.</a>
+          <label for="email">Email Address:</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Enter your email here"
+          />
+          <a
+            ><input type="checkbox" name="" id="" />I would like to receive
+            emails from SkilCraft
+          </a>
+          <button>Submit</button>
+          <div>
+            <img src="../images/social-icon-instagram-blue.webp" alt="" /><img
+              src="../images/social-icon-twitter-blue.webp"
+              alt=""
+            /><img src="../images/social-icon-fb-blue.webp" alt="" /><img
+              src="../images/social-icon-linkedin-blue.webp"
+              alt=""
+            /><img src="../images/social-icon-yt-blue.webp" alt="" />
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div id="bottomFooter">
+        <div>
+          <img src="../images/favicon.png" alt="" /><span
+            >Copyright © 2004 - 2023 SkilCraft LLC. All rights reserved</span
+          >
+        </div>
+        <div>
+          <a href="">Terms of Use</a>
+          <a href="">Privacy Notice</a>
+          <a href="">Modern Slavery Statement</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script
+    type="module"
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+  ></script>
+  <script
+    nomodule
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+  ></script>
+</html>
+<script src="../scripts/account.js"></script>
