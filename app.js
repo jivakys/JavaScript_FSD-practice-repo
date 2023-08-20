@@ -1,3 +1,4 @@
+// nnn
 userRoute.post("/register", userPresent, async (req, res) => {
   const { firstname, lastname, mobile, email, password } = req.body;
   try {
