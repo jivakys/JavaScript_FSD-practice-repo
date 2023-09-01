@@ -307,3 +307,26 @@ function merging(N, arr1, arr2) {
   }
   console.log(arr3.join(" "));
 }
+
+// binary search - target
+
+let k = 5;
+function bs(arr, k) {
+  //   arr.sort((a, b) => a - b);
+  let left = 0,
+    right = arr.length - 1;
+  while (left <= right) {
+    let mid = Math.floor(left + (right - left) / 2);
+    if (k === arr[mid]) {
+      console.log(mid);
+      return;
+    } else if (k > arr[mid]) {
+      left = mid + 1;
+    } else {
+      right = mid - 1;
+    }
+  }
+  console.log(left);
+}
+
+bs(arr, k);
