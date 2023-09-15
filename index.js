@@ -2199,3 +2199,17 @@ productRouter.get("/sorting", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
+// code snippet
+let x = 0;
+function increment() {
+  let x = 0;
+  x++;
+  return function () {
+    x++;
+    console.log(x);
+  };
+}
+const inc = increment();
+inc();
+inc();

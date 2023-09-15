@@ -330,3 +330,16 @@ function bs(arr, k) {
 }
 
 bs(arr, k);
+
+let x = 0;
+function increment() {
+  let x = 0;
+  x++;
+  return function () {
+    x++;
+    console.log(x);
+  };
+}
+const inc = increment();
+inc();
+inc();
