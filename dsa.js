@@ -331,3 +331,28 @@ function bs(arr, k) {
 }
 
 bs(arr, k);
+
+// Daily Temperatures
+// 2
+let nn = 4;
+let tempArr = [30, 40, 50, 60];
+//let nn = 8
+//let tempArr = 73 74 75 71 69 72 76 73
+
+function temp(n, arr) {
+  let stack = [];
+  let ans = [];
+
+  for (let i = n - 1; i >= 0; i--) {
+    while (stack.length != 0 && arr[i] >= arr[stack[stack.length - 1]]) {
+      stack.pop();
+    }
+    if (stack.length != 0) {
+      ans.push(stack[stack.length - 1] - i);
+    } else {
+      ans.push(0);
+    }
+    stack.push(i);
+  }
+  console.log(ans.reverse().join(" "));
+}
