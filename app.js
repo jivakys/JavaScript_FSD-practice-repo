@@ -1,15 +1,3 @@
-document.getElementById("resume-button-1").addEventListener("click", () => {
-  window.open(
-    "https://drive.google.com/file/d/1pxtgbZNfyqJaI3Iea_54F65i4PZofSik/view?usp=sharing",
-    "_blank"
-  );
-});
-document.getElementById("resume-button-1").addEventListener("click", () => {
-  window.open(
-    "https://drive.google.com/file/d/1pxtgbZNfyqJaI3Iea_54F65i4PZofSik/view?usp=sharing",
-    "_blank"
-  );
-});
 userRoute.post("/register", userPresent, async (req, res) => {
   const { firstname, lastname, mobile, email, password } = req.body;
   try {
