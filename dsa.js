@@ -275,18 +275,17 @@ function patternOfN(N) {
 
 // DETECT GIVEN Number PALINDROM or NOT
 function detectPalindrome(num) {
-  //   num = num.toString();
-  //   let new_num = "";
+  num = num.toString();
+  let new_num = "";
 
-  //  for(let i =num.length-1; i>=0; i--){
-  //     new_num = new_num + num[i];
-  // }
-  //     if(num==new_num){
-  //         console.log("Yes");
-  //     }
-  //     else{
-  //         console.log("No");
-  //     }
+  for (let i = num.length - 1; i >= 0; i--) {
+    new_num = new_num + num[i];
+  }
+  if (num == new_num) {
+    console.log("Yes");
+  } else {
+    console.log("No");
+  }
 
   let rev = 0;
   let temp = num;
