@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corousal slider</title>
+</head>
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    .imageCarousel {
+        height: 50%;
+        width: 50%;
+        margin: 20px auto;
+    }
+
+    .imageCarousel>img {
+        width: 100%;
+        opacity: 1;
+    }
+
+    #prev-button,
+    #next-button {
+        display: inline-block;
+        padding: 8px 12px;
+        width: auto;
+        overflow: hidden;
+        text-align: center;
+        vertical-align: middle;
+        outline: none;
+        color: inherit;
+        font: inherit;
+        line-height: normal;
+        cursor: pointer;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 50%;
+    }
+
+    #prev-button:hover,
+    #next-button:hover {
+        color: black;
+        background: white;
+    }
+
+    #prev-button {
+        position: absolute;
+        top: 25%;
+        margin-left: -55%;
+    }
+
+    #next-button {
+        position: absolute;
+        top: 25%;
+        right: 25%;
+        margin-right: -5%;
+    }
+</style>
+
+<body>
+    <div class="imageCarousel">
+        <h1>Images Slider</h1>
+        <img src="https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg?auto=compress&cs=tinysrgb&w=600"
+            alt="flowers">
+        <button id="prev-button">
+            < </button>
+                <button id="next-button" onclick="nextClick()"> > </button>
+    </div>
+</body>
+<script>
+    var images = [
+        "https://images.pexels.com/photos/68507/spring-flowers-flowers-collage-floral-68507.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "https://images.pexels.com/photos/46216/sunflower-flowers-bright-yellow-46216.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "https://images.pexels.com/photos/39517/rose-flower-blossom-bloom-39517.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "https://images.pexels.com/photos/1408221/pexels-photo-1408221.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "https://images.pexels.com/photos/67857/daisy-flower-spring-marguerite-67857.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "https://images.pexels.com/photos/1369068/pexels-photo-1369068.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "https://images.pexels.com/photos/696996/pexels-photo-696996.jpeg?auto=compress&cs=tinysrgb&w=600"
+    ];
+
+    var currentIndex = 0;
+    var img = document.querySelector("img")
+    var next = document.querySelector("#next-button")
+    var prev = document.getElementById('prev-button');
+
+
+    var incrementIndex = function () {
+        console.log(currentIndex)
+        currentIndex += 1; // increments currentIndex
+
+        if (currentIndex > images.length - 1) {
+
+            currentIndex = 0;
+        }
+        return currentIndex;
+    }
+
+    var decrementIndex = function () {
+        currentIndex -= 1; // decrement currentIndex
+        console.log(currentIndex)
+        if (currentIndex < 0) {
+            currentIndex = images.length - 1;
+        }
+        return currentIndex;
+    }
+    function nextClick() {
+        img.setAttribute("src", images[incrementIndex(currentIndex)]);
+    }
+
+    prev.onclick = function () {
+        img.setAttribute("src", images[decrementIndex(currentIndex)])
+    }
+</script>
+
+</html>
