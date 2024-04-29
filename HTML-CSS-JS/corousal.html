@@ -20,6 +20,11 @@
     .imageCarousel>img {
         width: 100%;
         opacity: 1;
+
+        transition: opacity 0.5s;
+        -webkit-transition: opacity 0.5s;
+        -moz-transition: opacity 0.5s;
+        -o-transition: opacity 0.5s;
     }
 
     #prev-button,
@@ -34,10 +39,22 @@
         color: inherit;
         font: inherit;
         line-height: normal;
+        -webkit-font-smoothing: inherit;
+        -moz-osx-font-smoothing: inherit;
+        /* -webkit-appearance: none; */
         cursor: pointer;
         color: white;
         background-color: rgba(0, 0, 0, 0.8);
         border-radius: 50%;
+        transition: background-color 0.5s ease;
+        -webkit-transition: background-color 0.5s ease;
+        -moz-transition: background-color 0.5s ease;
+        -o-transition: background-color 0.5s ease;
+
+        transition: color 0.5s ease;
+        -webkit-transition: color 0.5s ease;
+        -moz-transition: color 0.5s ease;
+        -o-transition: color 0.5s ease;
     }
 
     #prev-button:hover,
@@ -88,8 +105,8 @@
 
 
     var incrementIndex = function () {
-        console.log(currentIndex)
-        currentIndex += 1; // increments currentIndex
+        // console.log(currentIndex)
+        currentIndex += 1;
 
         if (currentIndex > images.length - 1) {
 
@@ -99,8 +116,8 @@
     }
 
     var decrementIndex = function () {
-        currentIndex -= 1; // decrement currentIndex
-        console.log(currentIndex)
+        currentIndex -= 1;
+        // console.log(currentIndex)
         if (currentIndex < 0) {
             currentIndex = images.length - 1;
         }
