@@ -9,7 +9,10 @@ function findSecLarge(arr) {
       secondLarge = arr[i];
     }
   }
+
   console.log(secondLarge);
+  //   let secondLarge = [...new Set(arr)].sort((a, b) => a - b);
+  //   console.log(secondLarge[secondLarge.length - 2]);
 }
 
 let arr = [1, 2, 3, 4, 5, 5, 6, 8, 4];
