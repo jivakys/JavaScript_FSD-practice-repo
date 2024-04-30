@@ -82,7 +82,7 @@
         <h1>Images Slider</h1>
         <img src="https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg?auto=compress&cs=tinysrgb&w=600"
             alt="flowers">
-        <button id="prev-button">
+        <button id="prev-button" style="background-color: aqua;">
             < </button>
                 <button id="next-button" onclick="nextClick()"> > </button>
     </div>
@@ -100,7 +100,7 @@
 
     var currentIndex = 0;
     var img = document.querySelector("img")
-    var next = document.querySelector("#next-button")
+    var next = document.getElementById("next-button")
     var prev = document.getElementById('prev-button');
 
 
