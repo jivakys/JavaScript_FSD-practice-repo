@@ -49,9 +49,26 @@ function insertionSort(arr, n) {
   return arr;
 }
 
-function mergeSort() {}
+function quickSort(arr) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+
+  let pivot = arr[arr.length - 1];
+  let left = [];
+  let right = [];
+  for (let i = 0; i < n - 1; i++) {
+    if (arr[i] < pivot) {
+      left.push(arr[i]);
+    } else {
+      right.push(arr[i]);
+    }
+  }
+  return quickSort(left).concat(pivot, quickSort(right));
+}
 
 // var solution = bubbleSort(arr, n);
 // var solution = selectionSort(arr, n);
 // var solution = insertionSort(arr, n);
+var solution = quickSort(arr);
 console.log(solution);
