@@ -1,4 +1,11 @@
-let obj = { name: "jivak" };
-let arr = [1, 2, "j", true];
+function randomFunc() {
+  var obj1 = { name: "Vivian", age: 45 };
 
-console.log(typeof undefined);
+  return function () {
+    console.log(obj1.name + " is " + "awesome");
+  };
+}
+
+var initialiseClosure = randomFunc();
+
+initialiseClosure();

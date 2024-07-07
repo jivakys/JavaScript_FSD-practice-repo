@@ -49,26 +49,48 @@ function insertionSort(arr, n) {
   return arr;
 }
 
-function quickSort(arr) {
-  if (arr.length <= 1) {
-    return arr;
-  }
+function quickSort(arr, start, end) {
+  // if (arr.length <= 1) {
+  //   return arr;
+  // }
 
-  let pivot = arr[arr.length - 1];
-  let left = [];
-  let right = [];
-  for (let i = 0; i < n - 1; i++) {
-    if (arr[i] < pivot) {
-      left.push(arr[i]);
-    } else {
-      right.push(arr[i]);
+  // let pivot = arr[arr.length - 1];
+  // let left = [];
+  // let right = [];
+  // for (let i = 0; i < n - 1; i++) {
+  //   if (arr[i] < pivot) {
+  //     left.push(arr[i]);
+  //   } else {
+  //     right.push(arr[i]);
+  //   }
+  // }
+  // return quickSort(left).concat(pivot, quickSort(right));
+
+  if (start < end) {
+    let pi = partition(arr, start, end);
+    quickSort(arr, start, pi - 1);
+    quickSort(arr, pi + 1, end);
+  }
+  return arr;
+}
+
+function partition(arr, start, end) {
+  let pivot = arr[end];
+  let i = start - 1;
+
+  for (let j = start; j <= end - 1; j++) {
+    if (arr[j] < pivot) {
+      i++;
+      [arr[i], arr[j]] = [arr[j], arr[i]];
     }
   }
-  return quickSort(left).concat(pivot, quickSort(right));
+
+  [arr[i + 1], arr[end]] = [arr[end], arr[i + 1]];
+  return i + 1;
 }
 
 // var solution = bubbleSort(arr, n);
 // var solution = selectionSort(arr, n);
 // var solution = insertionSort(arr, n);
-var solution = quickSort(arr);
+var solution = quickSort(arr, 0, n - 1);
 console.log(solution);
