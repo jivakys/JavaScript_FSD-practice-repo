@@ -1,11 +1,18 @@
-function randomFunc() {
-  var obj1 = { name: "Vivian", age: 45 };
+var rob = function (nums) {
+  const n = nums.length;
+  if (n === 1) {
+    return nums[0];
+  }
+  const dp = Array(n).fill(0);
 
-  return function () {
-    console.log(obj1.name + " is " + "awesome");
-  };
-}
+  dp[0] = nums[0];
+  dp[1] = Math.max(nums[0], nums[1]);
 
-var initialiseClosure = randomFunc();
+  for (let i = 2; i < n; i++) {
+    dp[i] = Math.max(dp[i - 1], nums[i] + dp[i - 2]);
+  }
+  return dp[n - 1];
+};
 
-initialiseClosure();
+const res = rob([2, 9, 8, 3, 6]);
+console.log(res);
